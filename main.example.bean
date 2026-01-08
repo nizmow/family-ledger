@@ -1,0 +1,7 @@
+option "title" "Family Ledger"
+option "operating_currency" "AUD"
+
+2024-01-01 custom "fava-option" "interval" "month"
+
+include "accounts.bean"
+include "ledgers/*.bean"

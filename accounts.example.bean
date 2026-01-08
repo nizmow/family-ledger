@@ -1,0 +1,11 @@
+; Root Accounts
+2024-01-01 open Assets:Checking
+2024-01-01 open Assets:Savings
+2024-01-01 open Income:Salary
+2024-01-01 open Equity:Opening-Balances
+
+; Expenses
+2024-01-01 open Expenses:Uncategorized
+2024-01-01 open Expenses:Groceries
+2024-01-01 open Expenses:Rent
+2024-01-01 open Expenses:Transport

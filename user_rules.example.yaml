@@ -1,0 +1,7 @@
+rules:
+  - pattern: "Woolworths|Coles"
+    account: "Expenses:Groceries"
+  - pattern: "Netflix|Spotify"
+    account: "Expenses:Entertainment"
+  - pattern: "Uber|Lyft"
+    account: "Expenses:Transport"

@@ -1,0 +1,26 @@
+# Ignore all data files
+*.bean
+*.csv
+/ledgers/
+/imports/
+/archive/
+/staging/
+.env
+user_rules.yaml
+
+# Allow example/template files
+!*.example.bean
+!*.example.yaml
+
+# Python/Environment
+__pycache__/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+.coverage
+htmlcov/
+config.py
