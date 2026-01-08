@@ -15,9 +15,9 @@ If you happen to find anything here useful then that's a happy accident. Enjoy!
     ```
 
 2.  **Install dependencies:**
-    This project uses `uv` for dependency management.
+    This project uses `mise` for tool and task management.
     ```bash
-    uv sync
+    mise install
     ```
 
 3.  **Initialize Configuration:**
@@ -38,7 +38,7 @@ If you happen to find anything here useful then that's a happy accident. Enjoy!
 
 ## Workflow
 
-We use a `Makefile` to simplify the standard workflow.
+We use `mise` to automate the standard workflow.
 
 ### 1. Capture
 Download CSV files from your bank and drop them into the `imports/` folder.
@@ -48,7 +48,7 @@ Download CSV files from your bank and drop them into the `imports/` folder.
 Process the new files and generate a staging file. This step extracts transactions and removes duplicates.
 
 ```bash
-make import
+mise run import
 ```
 *   **Outcome:** New transactions are written to `staging/import.bean`.
 
@@ -56,7 +56,7 @@ make import
 Launch Fava specifically to review the new, staged transactions.
 
 ```bash
-make review
+mise run review
 ```
 *   **Action:** Fix descriptions, add tags, or split transactions directly in the Fava UI (by editing the source file) or in your text editor.
 
@@ -64,7 +64,7 @@ make review
 Merge the reviewed transactions into your permanent ledger.
 
 ```bash
-make accept
+mise run accept
 ```
 *   **Outcome:** Transactions are appended to the correct year file (e.g., `ledgers/2026.bean`), and the staging file is cleared.
 
@@ -72,7 +72,7 @@ make accept
 Archive the processed CSV files.
 
 ```bash
-make archive
+mise run archive
 ```
 *   **Outcome:** Source CSVs are renamed (with date prefixes) and moved to `archive/YYYY/`.
 
@@ -81,16 +81,20 @@ make archive
 ### Validate Ledger
 Check your main ledger for syntax errors or imbalances:
 ```bash
-make check
+mise run check
 ```
 
 ### Run Tests
 Verify the importer logic (useful if you modify the python scripts):
 ```bash
-uv run pytest
+mise run test
 ```
 
-## Directory Structure
+### Linting
+Check code quality:
+```bash
+mise run lint
+```
 
 *   `main.bean`: The entry point for your ledger.
 *   `accounts.bean`: Definitions of your Assets, Liabilities, Income, and Expenses.

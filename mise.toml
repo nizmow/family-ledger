@@ -1,0 +1,18 @@
+[env]
+_.file = ".env"
+
+[tools]
+python = "3.14"
+uv = "latest"
+
+[tasks]
+# Workflow Tasks
+import = { run = "uv run scripts/ingest.py", description = "Ingest new transactions" }
+review = { run = "uv run scripts/review.py", description = "Review staged transactions" }
+accept = { run = "uv run scripts/merge_ledger.py", description = "Merge to ledger" }
+archive = { run = "uv run scripts/archive_files.py", description = "Archive CSVs" }
+
+# Dev Tasks
+check = { run = "uv run scripts/check_ledger.py", description = "Validate ledger" }
+test = { run = "uv run pytest", description = "Run unit tests" }
+lint = { run = ["uv run ruff check .", "uv run basedpyright ."], description = "Lint code" }
