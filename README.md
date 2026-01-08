@@ -1,8 +1,10 @@
-# Family Ledger
+# Neil's Family Ledger
 
 Personal finance tracking using [Beancount](https://beancount.github.io/docs/) and [Fava](https://beancount.github.io/fava/).
 
-This repository contains the automation scripts and structure for managing a double-entry accounting ledger. It is designed to keep your personal data (transactions, account numbers) separate from the code.
+I had been meaning to dive into the world of plain-text accounting for ages, and with LLMs lowering the barrier to entry for this kind of thing when you're a bit time-poor I figured now was a good time to jump in. I put some effort into packaging this up so that it might actually be useful to someone else, but honestly I haven't looked at the Beancount ecosystem much so I suspect there are a million starter packs out there that do this only better. At least I'm learning!
+
+If you happen to find anything here useful then that's a happy accident. Enjoy!
 
 ## Setup
 
