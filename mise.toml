@@ -14,5 +14,6 @@ archive = { run = "uv run scripts/archive_files.py", description = "Archive CSVs
 
 # Dev Tasks
 check = { run = "uv run scripts/check_ledger.py", description = "Validate ledger" }
+verify = { run = "uv run scripts/verify_env.py", description = "Verify environment configuration" }
 test = { run = "uv run pytest", description = "Run unit tests" }
 lint = { run = ["uv run ruff check .", "uv run basedpyright ."], description = "Lint code" }

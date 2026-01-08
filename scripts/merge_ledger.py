@@ -2,25 +2,22 @@ import argparse
 import os
 import sys
 from collections import defaultdict
-from dotenv import load_dotenv
 
 # Ensure root directory is in python path
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
+import config_utils
 from beancount import loader
 from beancount.core import data
 from beancount.parser import printer
-
-# Load environment variables
-load_dotenv()
 
 
 def main():
     parser = argparse.ArgumentParser(
         description="Merge staged transactions into ledger"
     )
-    parser.add_argument("staging_file", nargs="?", default=os.getenv("BEANCOUNT_STAGING_FILE", "staging/import.bean"), help="Path to the staging bean file")
-    parser.add_argument("ledgers_dir", nargs="?", default=os.getenv("BEANCOUNT_LEDGER_DIR", "ledgers"), help="Directory containing yearly ledger files")
+    parser.add_argument("staging_file", nargs="?", default=config_utils.get_staging_file(), help="Path to the staging bean file")
+    parser.add_argument("ledgers_dir", nargs="?", default=config_utils.get_ledger_dir(), help="Directory containing yearly ledger files")
 
     args = parser.parse_args()
 

@@ -2,7 +2,6 @@ import argparse
 import os
 import shutil
 import sys
-from dotenv import load_dotenv
 
 # Ensure root directory is in python path
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -10,15 +9,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import beangulp
 
 import config
-
-# Load environment variables
-load_dotenv()
+import config_utils
 
 
 def main():
     parser = argparse.ArgumentParser(description="Archive imported CSV files")
-    parser.add_argument("imports_dir", nargs="?", default=os.getenv("BEANCOUNT_IMPORTS_DIR", "imports"), help="Directory containing CSV files to archive")
-    parser.add_argument("archive_dir", nargs="?", default=os.getenv("BEANCOUNT_ARCHIVE_DIR", "archive"), help="Root directory for archives")
+    parser.add_argument("imports_dir", nargs="?", default=config_utils.get_imports_dir(), help="Directory containing CSV files to archive")
+    parser.add_argument("archive_dir", nargs="?", default=config_utils.get_archive_dir(), help="Root directory for archives")
 
     args = parser.parse_args()
 

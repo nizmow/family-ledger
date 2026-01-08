@@ -1,12 +1,14 @@
 import os
 import sys
 import subprocess
-from dotenv import load_dotenv
 
-load_dotenv()
+# Ensure root directory is in python path
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+import config_utils
 
 def main():
-    ledger_file = os.getenv("BEANCOUNT_MAIN_FILE", "main.bean")
+    ledger_file = config_utils.get_main_file()
     print(f"Checking {ledger_file}...", file=sys.stderr)
 
     # We delegate to the standard bean-check command

@@ -84,7 +84,7 @@ def test_categorization():
     entry1 = entries[0]
     assert entry1.flag == "*"
     assert len(entry1.postings) == 2
-    assert entry1.postings[1].account == "Expenses:Food:Groceries"
+    assert entry1.postings[1].account == "Expenses:Groceries"
 
     # Unknown Vendor
     entry2 = entries[1]

@@ -1,7 +1,6 @@
 import argparse
 import os
 import sys
-from dotenv import load_dotenv
 
 # Ensure root directory is in python path
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -12,9 +11,7 @@ from beancount.core import data
 from beancount.parser import printer
 
 import config
-
-# Load environment variables
-load_dotenv()
+import config_utils
 
 
 def are_similar(entry1, entry2):
@@ -51,12 +48,12 @@ def main():
     parser.add_argument(
         "imports_dir",
         nargs="?",
-        default=os.getenv("BEANCOUNT_IMPORTS_DIR", "imports"),
+        default=config_utils.get_imports_dir(),
         help="Directory containing CSV files",
     )
-    parser.add_argument("--output", default=os.getenv("BEANCOUNT_STAGING_FILE", "staging/import.bean"), help="Output file path")
+    parser.add_argument("--output", default=config_utils.get_staging_file(), help="Output file path")
     parser.add_argument(
-        "--ledger", default=os.getenv("BEANCOUNT_MAIN_FILE", "main.bean"), help="Path to main ledger file"
+        "--ledger", default=config_utils.get_main_file(), help="Path to main ledger file"
     )
 
     args = parser.parse_args()

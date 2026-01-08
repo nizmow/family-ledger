@@ -1,16 +1,20 @@
 import os
 import sys
 import subprocess
-from dotenv import load_dotenv
 
-load_dotenv()
+# Ensure root directory is in python path
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+import config_utils
 
 def main():
     # Gather paths from env
-    staging_file = os.getenv("BEANCOUNT_STAGING_FILE", "staging/import.bean")
-    accounts_file = os.getenv("BEANCOUNT_ACCOUNTS_FILE", "accounts.bean")
+    staging_file = config_utils.get_staging_file()
+    accounts_file = config_utils.get_accounts_file()
 
     # We need to construct a review file that includes the accounts and the staging file.
+
+
     # The review file should ideally be in the same dir as staging file to resolve relative imports if needed,
     # OR we use absolute paths in the include.
 

@@ -1,13 +1,10 @@
 import os
 import sys
 import yaml
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
+import config_utils
 
 # Default to user_rules.yaml if not set
-RULES_FILE = os.getenv("BEANCOUNT_RULES_FILE", "user_rules.yaml")
+RULES_FILE = config_utils.get_rules_file()
 
 CATEGORY_RULES = {}
 
