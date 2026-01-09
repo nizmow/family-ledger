@@ -116,4 +116,7 @@ class CommBankImporter(importer.ImporterProtocol):
             )
             entries.append(balance_entry)
 
+        # Sort entries by date (and other criteria) to ensure chronological order
+        entries.sort(key=data.entry_sortkey)
+
         return entries

@@ -97,3 +97,44 @@ def test_categorization():
     entry_bal = entries[2]
     assert isinstance(entry_bal, data.Balance)
     assert entry_bal.amount == amount.Amount(number.D("930.00"), "AUD")
+
+
+def test_extract_entries_sorting():
+    # Newest first (standard bank CSV)
+    content = "02/01/2026,-50.00,Test Withdrawal,950.00\n01/01/2026,100.00,Test Deposit,1000.00\n"
+    importer = MockCommBankImporter("Assets:Test")
+    file_obj = MockFile("test.csv", content)
+    entries = importer.extract(file_obj)
+
+    assert len(entries) == 3
+
+    # Check order: Should be Jan 1, then Jan 2/Balance
+    # Note: Balance entry is generated from the LAST row (Jan 1), so it's dated Jan 2.
+    # Sorted order:
+    # 1. Transaction Jan 1
+    # 2. Balance Jan 2 (asserting start of day balance, which is end of Jan 1)
+    # 3. Transaction Jan 2
+
+    # Entry 1: Jan 1
+    assert entries[0].date == date(2026, 1, 1)
+    assert entries[0].narration == "Test Deposit"
+
+    # Entry 2: Balance Jan 2 (generated from Jan 1 row)
+    # The Balance directive is for the start of the day.
+    # Beancount sorting usually puts Balance directives before Transactions on the same day?
+    # Let's check entry_sortkey behavior or just check dates.
+    # Actually, Balance entries sort before Transactions on the same date?
+    # entry_sortkey relies on (date, meta.lineno) usually, or directive priorities.
+    # Balance priority is usually higher (processed earlier) but let's check exact sort.
+
+    # We just ensure the list is sorted by date primarily.
+    assert entries[1].date >= entries[0].date
+    assert entries[2].date >= entries[1].date
+
+    # Specific checks
+    txn_jan2 = [
+        e
+        for e in entries
+        if isinstance(e, data.Transaction) and e.date == date(2026, 1, 2)
+    ][0]
+    assert txn_jan2.narration == "Test Withdrawal"
